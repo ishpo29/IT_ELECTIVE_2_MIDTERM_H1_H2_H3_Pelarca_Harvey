@@ -144,12 +144,10 @@ The application uses **static in-memory repositories**, so no SQL database or En
 
 ---
 
-## Screenshots
 
 ### Menu
 > Displays the available drinks and pastries, their prices, stock quantities, and allows the cashier to add items to the shopping cart.
 
-(Add your screenshot here)
 
 ---
 
