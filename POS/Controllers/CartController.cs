@@ -28,6 +28,8 @@ namespace POS.Controllers
             return View(viewModel);
         }
 
+
+        // US-03 / US-04: view the active cart
         // US-02: add a product from the catalog to the cart
         [HttpPost]
         [ValidateAntiForgeryToken]
