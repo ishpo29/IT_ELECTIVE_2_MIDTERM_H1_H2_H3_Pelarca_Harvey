@@ -1,14 +1,24 @@
 using Microsoft.AspNetCore.Mvc;
-using POS.Models;
+using POS.Models.ViewModels;
+using POS.Repositories;
 using System.Diagnostics;
 
 namespace POS.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ProductRepository _productRepository;
+
+        public HomeController(ProductRepository productRepository)
+        {
+            _productRepository = productRepository;
+        }
+
+        // US-01: Product Browsing
         public IActionResult Index()
         {
-            return View();
+            var products = _productRepository.GetAll();
+            return View(products);
         }
 
         public IActionResult Privacy()
