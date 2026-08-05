@@ -1,8 +1,60 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model POS.Models.ViewModels.CartViewModel
+@{
+    ViewData["Title"] = "Your Cart";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h1 class="mt-4 mb-3">Your Cart</h1>
+
+@if (!Model.Items.Any())
+{
+    <p class="text-muted">Your cart is empty. <a asp-controller="Home" asp-action="Index">Browse the menu</a> to add something.</p>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table cart-table align-middle">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Unit Price</th>
+                    <th style="width:160px;">Quantity</th>
+                    <th>Line Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td>@item.ProductName</td>
+                        <td>@item.UnitPrice.ToString("C")</td>
+                        <td>
+                            <form asp-controller="Cart" asp-action="UpdateQuantity" method="post" class="d-flex gap-2">
+                                <input type="hidden" name="ProductId" value="@item.ProductId" />
+                                <input type="number" name="Quantity" value="@item.Quantity" min="1" class="form-control qty-input" />
+                                <button type="submit" class="btn btn-sm btn-munchi-outline btn-outline-secondary">Update</button>
+                            </form>
+                        </td>
+                        <td>@item.LineTotal.ToString("C")</td>
+                        <td>
+                            <form asp-controller="Cart" asp-action="RemoveItem" method="post">
+                                <input type="hidden" name="productId" value="@item.ProductId" />
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center grand-total-box mt-3">
+        <h4 class="mb-0">Grand Total</h4>
+        <h4 class="mb-0">@Model.GrandTotal.ToString("C")</h4>
+    </div>
+
+    <div class="d-flex justify-content-between mt-4">
+        <a asp-controller="Home" asp-action="Index" class="btn btn-munchi-outline btn-outline-secondary">Add More Items</a>
+        <a asp-controller="Checkout" asp-action="Index" class="btn btn-munchi">Proceed to Checkout</a>
+    </div>
+}
