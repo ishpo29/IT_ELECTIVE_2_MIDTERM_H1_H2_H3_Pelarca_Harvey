@@ -1,8 +1,46 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model POS.Models.ViewModels.CheckoutViewModel
+@{
+    ViewData["Title"] = "Checkout";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h1 class="mt-4 mb-3">Checkout</h1>
+
+<div class="row g-4">
+    <div class="col-md-6">
+        <h5>Order Summary</h5>
+        <ul class="list-group mb-3">
+            @foreach (var item in Model.Items)
+            {
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>@item.ProductName &times; @item.Quantity</span>
+                    <span>@item.LineTotal.ToString("C")</span>
+                </li>
+            }
+            <li class="list-group-item d-flex justify-content-between fw-bold grand-total-box">
+                <span>Grand Total</span>
+                <span>@Model.GrandTotal.ToString("C")</span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="col-md-6">
+        <h5>Customer Details</h5>
+        <form asp-controller="Checkout" asp-action="Index" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="CheckoutForm.CustomerName" class="form-label"></label>
+                <input asp-for="CheckoutForm.CustomerName" class="form-control" />
+                <span asp-validation-for="CheckoutForm.CustomerName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="CheckoutForm.CustomerEmail" class="form-label">Customer Email (optional)</label>
+                <input asp-for="CheckoutForm.CustomerEmail" class="form-control" />
+                <span asp-validation-for="CheckoutForm.CustomerEmail" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-munchi w-100">Confirm Payment</button>
+        </form>
+    </div>
 </div>
