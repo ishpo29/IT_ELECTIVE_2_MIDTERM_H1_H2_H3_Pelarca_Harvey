@@ -1,8 +1,33 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model POS.Models.Entities.Transaction
+@{
+    ViewData["Title"] = "Order Confirmed";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="mt-4 mb-3 text-center">
+    <h1>Thank you, @Model.CustomerName! ☕</h1>
+    <p class="text-muted">Your order has been recorded.</p>
+</div>
+
+<div class="receipt-box mx-auto" style="max-width:500px;">
+    <p class="mb-1"><strong>Transaction #:</strong> @Model.TransactionId</p>
+    <p class="mb-3"><strong>Date:</strong> @Model.Date.ToString("g")</p>
+
+    <ul class="list-group mb-3">
+        @foreach (var item in Model.PurchasedItems)
+        {
+            <li class="list-group-item d-flex justify-content-between">
+                <span>@item.ProductName &times; @item.Quantity</span>
+                <span>@item.LineTotal.ToString("C")</span>
+            </li>
+        }
+    </ul>
+
+    <div class="d-flex justify-content-between fw-bold fs-5">
+        <span>Total Paid</span>
+        <span>@Model.TotalAmount.ToString("C")</span>
+    </div>
+</div>
+
+<div class="text-center mt-4">
+    <a asp-controller="Home" asp-action="Index" class="btn btn-munchi">Start Next Order</a>
 </div>

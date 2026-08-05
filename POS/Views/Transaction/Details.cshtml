@@ -1,8 +1,42 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model POS.Models.Entities.Transaction
+@{
+    ViewData["Title"] = $"Order #{Model.TransactionId}";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h1 class="mt-4 mb-3">Order #@Model.TransactionId</h1>
+
+<p class="mb-1"><strong>Customer:</strong> @Model.CustomerName</p>
+@if (!string.IsNullOrEmpty(Model.CustomerEmail))
+{
+    <p class="mb-1"><strong>Email:</strong> @Model.CustomerEmail</p>
+}
+<p class="mb-3"><strong>Date:</strong> @Model.Date.ToString("g")</p>
+
+<table class="table cart-table">
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>Unit Price</th>
+            <th>Quantity</th>
+            <th>Line Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.PurchasedItems)
+        {
+            <tr>
+                <td>@item.ProductName</td>
+                <td>@item.UnitPrice.ToString("C")</td>
+                <td>@item.Quantity</td>
+                <td>@item.LineTotal.ToString("C")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="d-flex justify-content-between grand-total-box">
+    <h5 class="mb-0">Grand Total</h5>
+    <h5 class="mb-0">@Model.TotalAmount.ToString("C")</h5>
 </div>
+
+<a asp-controller="Transaction" asp-action="Index" class="btn btn-munchi-outline btn-outline-secondary mt-4">Back to Past Orders</a>

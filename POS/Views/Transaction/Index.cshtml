@@ -1,8 +1,41 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model List<POS.Models.Entities.Transaction>
+@{
+    ViewData["Title"] = "Past Orders";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h1 class="mt-4 mb-3">Past Orders</h1>
+
+@if (!Model.Any())
+{
+    <p class="text-muted">No completed sales yet.</p>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table cart-table align-middle">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>Customer</th>
+                    <th>Grand Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var t in Model)
+                {
+                    <tr>
+                        <td>@t.TransactionId</td>
+                        <td>@t.Date.ToString("g")</td>
+                        <td>@t.CustomerName</td>
+                        <td>@t.TotalAmount.ToString("C")</td>
+                        <td>
+                            <a asp-controller="Transaction" asp-action="Details" asp-route-id="@t.TransactionId" class="btn btn-sm btn-munchi-outline btn-outline-secondary">View</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
