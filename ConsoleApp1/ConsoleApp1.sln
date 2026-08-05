@@ -1,9 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.6.11819.183 stable
+VisualStudioVersion = 18.6.11819.183
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POS", "..\POS\POS.csproj", "{11F4B511-C13D-4CB7-B3CE-43679E8FAC40}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{11F4B511-C13D-4CB7-B3CE-43679E8FAC40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11F4B511-C13D-4CB7-B3CE-43679E8FAC40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11F4B511-C13D-4CB7-B3CE-43679E8FAC40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11F4B511-C13D-4CB7-B3CE-43679E8FAC40}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
