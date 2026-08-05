@@ -156,5 +156,5 @@ The application uses **static in-memory repositories**, so no SQL database or En
 ## Author
 
 **Harvey Pelarca**  
-BSIT Student  
-Lyceum of Alabang
+BSIT-31E3
+
